@@ -6,14 +6,13 @@ const root = __dirname + '/../'
 const version = process.argv[2]
 const branch = getResult('git rev-parse --abbrev-ref HEAD')
 const dirty = !!getResult('git diff --stat')
-const red = '\x1b[31m'
 
 if (branch !== 'master') {
-  exit(red + 'Branch must be master')
+  exit('Branch must be master')
 }
 
 if (dirty) {
-  exit(red + 'Branch is dirty')
+  exit('Branch is dirty')
 }
 
 info('Bump version')
@@ -46,6 +45,6 @@ function info(msg) {
 }
 
 function exit(msg) {
-  console.log(red, '\n', msg, '\n')
+  console.log('\x1b[31m', '\n', msg, '\n')
   process.exit(1)
 }

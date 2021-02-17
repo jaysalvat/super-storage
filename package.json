@@ -6,6 +6,7 @@
   "module": "./build/super-storage.esm.js",
   "browser": "./build/super-storage.umd.min.js",
   "scripts": {
+    "test": "open http://localhost:5500/test/index.html && light-server -s . -p 5500",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "dev": "rollup -w",
@@ -38,6 +39,7 @@
     "@jaysalvat/eslint-config": "^1.0.2",
     "chai": "^4.3.0",
     "eslint": "^7.20.0",
+    "light-server": "^2.9.1",
     "mocha": "^8.3.0",
     "rollup": "^2.39.0",
     "rollup-plugin-terser": "^7.0.2",
