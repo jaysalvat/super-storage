@@ -61,8 +61,6 @@ describe('Super Local Storage', function () {
 
     superLocalStorage.removeItem('test')
 
-    console.log(superLocalStorage.getItem('test'))
-
     expect(superLocalStorage.getItem('test')).to.deep.equal(null)
     expect(localStorage.getItem('myPrefix.test')).to.deep.equal(null)
   })
