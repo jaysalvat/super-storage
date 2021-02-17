@@ -1,0 +1,46 @@
+{
+  "name": "@jaysalvat/super-storage",
+  "version": "1.0.0",
+  "description": "Cookie, localStorage and sessionStorage javascript helpers",
+  "main": "./build/super-storage.umd.js",
+  "module": "./build/super-storage.esm.js",
+  "browser": "./build/super-storage.umd.min.js",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "dev": "rollup -w",
+    "build": "rollup -c",
+    "prebuild": "rm -fr ./build",
+    "release": "npm version patch & npm publish",
+    "release:patch": "npm version patch & npm publish",
+    "release:minor": "npm version minor & npm publish",
+    "release:major": "npm version major & npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaysalvat/superstorage.git"
+  },
+  "keywords": [
+    "javascript",
+    "local",
+    "session",
+    "storage",
+    "cookie"
+  ],
+  "author": "Jay Salvat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaysalvat/superstorage/issues"
+  },
+  "homepage": "https://github.com/jaysalvat/superstorage#readme",
+  "devDependencies": {
+    "@jaysalvat/eslint-config": "^1.0.2",
+    "chai": "^4.3.0",
+    "eslint": "^7.20.0",
+    "mocha": "^8.3.0",
+    "puppeteer": "^7.1.0",
+    "rollup": "^2.39.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "window-mock": "^0.1.0"
+  }
+}
