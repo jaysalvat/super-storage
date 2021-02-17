@@ -11,10 +11,11 @@
     "dev": "rollup -w",
     "build": "rollup -c",
     "prebuild": "rm -fr ./build",
-    "release": "npm version patch & npm publish",
-    "release:patch": "npm version patch & npm publish",
-    "release:minor": "npm version minor & npm publish",
-    "release:major": "npm version major & npm publish"
+    "release": "npm version patch",
+    "release:patch": "npm version patch",
+    "release:minor": "npm version minor",
+    "release:major": "npm version major",
+    "postrelease": "npm run build && npm publish"
   },
   "repository": {
     "type": "git",
