@@ -40,13 +40,13 @@ const superSessionStorage = new SuperSessionStorage(settings)
 ```html
 <script src="https://unpkg.com/@jaysalvat/super-storage@1.1.1/build/super-storage.umd.min.js"></script>
 <script>
- const settings = {
-  storagePrefix: 'myApp'
-}
+  const settings = {
+    storagePrefix: 'myApp'
+  }
 
-const superCookie = new superStorage.SuperCookie(settings)
-const superLocalStorage = new superStorage.SuperLocalStorage(settings)
-const superSessionStorage = new superStorage.SuperSessionStorage(settings)
+  const superCookie = new superStorage.SuperCookie(settings)
+  const superLocalStorage = new superStorage.SuperLocalStorage(settings)
+  const superSessionStorage = new superStorage.SuperSessionStorage(settings)
 </script>
 
 ```
