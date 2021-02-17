@@ -5,6 +5,7 @@ Super Storage
 
 Super Storage provides some helpers over cookie, localStorage and sessionStorage.
 
+- [x] 1Kb gzipped
 - [x] Store all type of values (objects and arrays)
 - [x] Default value when empty
 - [x] Prefix key
@@ -20,6 +21,8 @@ npm install @jaysalvat/super-storage
 
 ## Usage
 
+### Module
+
 ```javascript
 import { SuperCookie, SuperLocalStorage, SuperSessionStorage } from '@jaysalvat/super-storage'
 
@@ -31,6 +34,23 @@ const superCookie = new SuperCookie(settings)
 const superLocalStorage = new SuperLocalStorage(settings)
 const superSessionStorage = new SuperSessionStorage(settings)
 ```
+
+### CDN
+
+```html
+<script src="https://unpkg.com/@jaysalvat/super-storage@1.1.1/build/super-storage.umd.min.js"></script>
+<script>
+  const settings = {
+    storagePrefix: 'myApp'
+  }
+
+  const superCookie = new superStorage.SuperCookie(settings)
+  const superLocalStorage = new superStorage.SuperLocalStorage(settings)
+  const superSessionStorage = new superStorage.SuperSessionStorage(settings)
+</script>
+
+```
+
 
 ## Settings
 
@@ -92,10 +112,10 @@ superLocalStorage.clear()
 
 ## SuperSessionStorage
 
-Note: If sessionNative set to false (default) in the settings, SuperSessionStorage
-will use the localStorage to store values and a cookie to watch the browser session.
-This trick allows SuperSessionStorage to be kept between tabs and windows (unlike 
-native sessionStorage)
+Note: If `sessionNative` set to false (default) in the settings, `SuperSessionStorage`
+will use the native `localStorage` to store values and a cookie in order to watch the 
+browser session. This trick allows `SuperSessionStorage` to be kept between tabs and 
+windows (unlike native `sessionStorage`)
 
 ### setItem
 
@@ -137,7 +157,7 @@ superSessionStorage.clear()
 ### setItem
 
 Set a value. 
-Options can be passed (merges with global settings cookieOptions)
+Options can be passed (merged with global settings `cookieOptions`)
 
 ```javascript
   const options = {
@@ -166,7 +186,7 @@ superCookie.getItem('key', 'default value')
 
 ### removeItem
 
-Remove a value. Path and domain options can be passed.
+Remove a value. Options `path` and `domain` can be passed.
 
 ```javascript
  const options = {
