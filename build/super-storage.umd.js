@@ -5,11 +5,18 @@
 }(this, (function (exports) { 'use strict';
 
   var defaultSettings = {
-    prefix: '',
-    prefixSession: 'session',
-    prefixCookie: '',
-    sessionCookie: '__superStorageSession',
-    sessionNative: false
+    storagePrefix: '',
+    sessionCookieName: '__superStorageSession',
+    sessionNative: false,
+    sessionPrefix: 'session',
+    cookiePrefix: '',
+    cookieOptions: {
+      domain: null,
+      path: null,
+      maxAge: null,
+      expires: null,
+      secure: null
+    }
   };
 
   class SuperCookie {
@@ -17,10 +24,37 @@
       this.settings = Object.assign({}, defaultSettings, settings);
     }
 
-    setItem(key, value, options = {
-      domain: window.location.hostname,
-      path: '/'
-    }) {
+    setItem(key, value, options = {}) {
+      options = this.mergeOptions(options);
+
+      document.cookie = this.key(key) + '=' + JSON.stringify(value) + ';' + this.buildOptionString(options);
+    }
+
+    getItem(key, defaultValue = null) {
+      const found = document.cookie.match('(^|;)\\s*' + this.key(key) + '\\s*=\\s*([^;]+)');
+      const value = found ? found.pop() : defaultValue;
+
+      try {
+        return JSON.parse(value)
+      } catch (e) {
+        return value
+      }
+    }
+
+    removeItem(key, options = {}) {
+      options = this.mergeOptions(options);
+
+      document.cookie = this.key(key) + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT;' + this.buildOptionString({
+        domain: options.domain,
+        path: options.path
+      });
+    }
+
+    mergeOptions(options) {
+      return Object.assign({}, defaultSettings.cookieOptions, options)
+    }
+
+    buildOptionString(options) {
       let optionsString = '';
 
       if (options.expires) {
@@ -46,42 +80,14 @@
         optionsString += 'secure;';
       }
 
-      document.cookie = this.key(key) + '=' + JSON.stringify(value) + ';' + optionsString;
-    }
-
-    getItem(key, defaultValue = null) {
-      const found = document.cookie.match('(^|;)\\s*' + this.key(key) + '\\s*=\\s*([^;]+)');
-      const value = found ? found.pop() : defaultValue;
-
-      try {
-        return JSON.parse(value)
-      } catch (e) {
-        return value
-      }
-    }
-
-    removeItem(key, options = {
-      domain: window.location.hostname,
-      path: '/'
-    }) {
-      let optionsString = '';
-
-      if (options.path) {
-        optionsString += 'path=' + options.path + ';';
-      }
-
-      if (options.domain) {
-        optionsString += 'domain=' + options.domain + ';';
-      }
-
-      document.cookie = this.key(key) + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT;' + optionsString;
+      return optionsString
     }
 
     key(key) {
       const prefixes = [];
 
-      if (this.settings.prefixCookie) {
-        prefixes.push(this.settings.prefixCookie);
+      if (this.settings.cookiePrefix) {
+        prefixes.push(this.settings.cookiePrefix);
       }
       prefixes.push(key);
 
@@ -139,8 +145,8 @@
     key(key) {
       const prefixes = [];
 
-      if (this.settings.prefix) {
-        prefixes.push(this.settings.prefix);
+      if (this.settings.storagePrefix) {
+        prefixes.push(this.settings.storagePrefix);
       }
       prefixes.push(key);
 
@@ -156,7 +162,7 @@
 
   class SuperSessionStorage extends SuperStorage {
     constructor(settings = {}) {
-      settings = Object.assign({}, defaultSettings, settings);
+      settings = Object.assign({}, defaultSettings, settings, { cookiePrefix: null });
 
       if (!settings.sessionNative) {
         super(window.localStorage, settings);
@@ -196,19 +202,25 @@
         return key
       }
 
-      if (this.settings.prefixSession) {
-        prefixes.unshift(this.settings.prefixSession);
+      if (this.settings.sessionPrefix) {
+        prefixes.unshift(this.settings.sessionPrefix);
       }
 
       return prefixes.join('.')
     }
 
     checkSession() {
-      return !!this.superCookie.getItem(this.settings.sessionCookie)
+      return !!this.superCookie.getItem(this.settings.sessionCookieName)
     }
 
     killSession() {
-      this.superCookie.setItem(this.settings.sessionCookie, 'YES');
+      this.superCookie.setItem(this.settings.sessionCookieName, 'YES', {
+        domain: window.location.hostname,
+        path: '/',
+        maxAge: null,
+        expires: null,
+        secure: false
+      });
       this.clear();
     }
   }

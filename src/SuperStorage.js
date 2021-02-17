@@ -50,8 +50,8 @@ export default class SuperStorage {
   key(key) {
     const prefixes = []
 
-    if (this.settings.prefix) {
-      prefixes.push(this.settings.prefix)
+    if (this.settings.storagePrefix) {
+      prefixes.push(this.settings.storagePrefix)
     }
     prefixes.push(key)
 

@@ -5,10 +5,37 @@ export default class SuperCookie {
     this.settings = Object.assign({}, defaultSettings, settings)
   }
 
-  setItem(key, value, options = {
-    domain: window.location.hostname,
-    path: '/'
-  }) {
+  setItem(key, value, options = {}) {
+    options = this.mergeOptions(options)
+
+    document.cookie = this.key(key) + '=' + JSON.stringify(value) + ';' + this.buildOptionString(options)
+  }
+
+  getItem(key, defaultValue = null) {
+    const found = document.cookie.match('(^|;)\\s*' + this.key(key) + '\\s*=\\s*([^;]+)')
+    const value = found ? found.pop() : defaultValue
+
+    try {
+      return JSON.parse(value)
+    } catch (e) {
+      return value
+    }
+  }
+
+  removeItem(key, options = {}) {
+    options = this.mergeOptions(options)
+
+    document.cookie = this.key(key) + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT;' + this.buildOptionString({
+      domain: options.domain,
+      path: options.path
+    })
+  }
+
+  mergeOptions(options) {
+    return Object.assign({}, defaultSettings.cookieOptions, options)
+  }
+
+  buildOptionString(options) {
     let optionsString = ''
 
     if (options.expires) {
@@ -34,42 +61,14 @@ export default class SuperCookie {
       optionsString += 'secure;'
     }
 
-    document.cookie = this.key(key) + '=' + JSON.stringify(value) + ';' + optionsString
-  }
-
-  getItem(key, defaultValue = null) {
-    const found = document.cookie.match('(^|;)\\s*' + this.key(key) + '\\s*=\\s*([^;]+)')
-    const value = found ? found.pop() : defaultValue
-
-    try {
-      return JSON.parse(value)
-    } catch (e) {
-      return value
-    }
-  }
-
-  removeItem(key, options = {
-    domain: window.location.hostname,
-    path: '/'
-  }) {
-    let optionsString = ''
-
-    if (options.path) {
-      optionsString += 'path=' + options.path + ';'
-    }
-
-    if (options.domain) {
-      optionsString += 'domain=' + options.domain + ';'
-    }
-
-    document.cookie = this.key(key) + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT;' + optionsString
+    return optionsString
   }
 
   key(key) {
     const prefixes = []
 
-    if (this.settings.prefixCookie) {
-      prefixes.push(this.settings.prefixCookie)
+    if (this.settings.cookiePrefix) {
+      prefixes.push(this.settings.cookiePrefix)
     }
     prefixes.push(key)
 

@@ -4,7 +4,7 @@ import defaultSettings from './settings.js'
 
 export default class SuperSessionStorage extends SuperStorage {
   constructor(settings = {}) {
-    settings = Object.assign({}, defaultSettings, settings)
+    settings = Object.assign({}, defaultSettings, settings, { cookiePrefix: null })
 
     if (!settings.sessionNative) {
       super(window.localStorage, settings)
@@ -44,19 +44,25 @@ export default class SuperSessionStorage extends SuperStorage {
       return key
     }
 
-    if (this.settings.prefixSession) {
-      prefixes.unshift(this.settings.prefixSession)
+    if (this.settings.sessionPrefix) {
+      prefixes.unshift(this.settings.sessionPrefix)
     }
 
     return prefixes.join('.')
   }
 
   checkSession() {
-    return !!this.superCookie.getItem(this.settings.sessionCookie)
+    return !!this.superCookie.getItem(this.settings.sessionCookieName)
   }
 
   killSession() {
-    this.superCookie.setItem(this.settings.sessionCookie, 'YES')
+    this.superCookie.setItem(this.settings.sessionCookieName, 'YES', {
+      domain: window.location.hostname,
+      path: '/',
+      maxAge: null,
+      expires: null,
+      secure: false
+    })
     this.clear()
   }
 }
