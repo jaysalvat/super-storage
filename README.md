@@ -5,6 +5,7 @@ Super Storage
 
 Super Storage provides some helpers over cookie, localStorage and sessionStorage.
 
+- [x] 1Kb gzipped
 - [x] Store all type of values (objects and arrays)
 - [x] Default value when empty
 - [x] Prefix key
