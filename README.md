@@ -21,6 +21,8 @@ npm install @jaysalvat/super-storage
 
 ## Usage
 
+### Module
+
 ```javascript
 import { SuperCookie, SuperLocalStorage, SuperSessionStorage } from '@jaysalvat/super-storage'
 
@@ -32,6 +34,23 @@ const superCookie = new SuperCookie(settings)
 const superLocalStorage = new SuperLocalStorage(settings)
 const superSessionStorage = new SuperSessionStorage(settings)
 ```
+
+### CDN
+
+```html
+<script src="https://unpkg.com/@jaysalvat/super-storage@1.1.1/build/super-storage.umd.min.js"></script>
+<script>
+ const settings = {
+  storagePrefix: 'myApp'
+}
+
+const superCookie = new superStorage.SuperCookie(settings)
+const superLocalStorage = new superStorage.SuperLocalStorage(settings)
+const superSessionStorage = new superStorage.SuperSessionStorage(settings)
+</script>
+
+```
+
 
 ## Settings
 
