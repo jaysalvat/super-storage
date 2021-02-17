@@ -9,13 +9,13 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "dev": "rollup -w",
+    "clean": "node ./scripts/clean.js",
     "build": "rollup -c",
-    "prebuild": "rm -fr ./build",
-    "release": "npm version patch",
-    "release:patch": "npm version patch",
-    "release:minor": "npm version minor",
-    "release:major": "npm version major",
-    "postrelease": "npm run build && npm publish"
+    "prebuild": "npm run clean",
+    "release": "node ./scripts/release.js patch",
+    "release:patch": "node ./scripts/release.js patch",
+    "release:minor": "node ./scripts/release.js minor",
+    "release:major": "node ./scripts/release.js major"
   },
   "repository": {
     "type": "git",
@@ -40,6 +40,7 @@
     "eslint": "^7.20.0",
     "mocha": "^8.3.0",
     "rollup": "^2.39.0",
-    "rollup-plugin-terser": "^7.0.2"
+    "rollup-plugin-terser": "^7.0.2",
+    "shelljs": "^0.8.4"
   }
 }
