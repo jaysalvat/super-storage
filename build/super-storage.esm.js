@@ -3,7 +3,7 @@
 * super-storage
 * Cookie, localStorage and sessionStorage javascript helpers
 * https://github.com/jaysalvat/super-store
-* @version 1.1.2 built 2021-02-17 15:29:02
+* @version 1.1.4 built 2021-02-17 16:24:57
 * @license ISC
 * @author Jay Salvat http://jaysalvat.com
 */
