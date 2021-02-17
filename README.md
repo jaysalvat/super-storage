@@ -92,10 +92,10 @@ superLocalStorage.clear()
 
 ## SuperSessionStorage
 
-Note: If sessionNative set to false (default) in the settings, SuperSessionStorage
-will use the localStorage to store values and a cookie to watch the browser session.
-This trick allows SuperSessionStorage to be kept between tabs and windows (unlike 
-native sessionStorage)
+Note: If `sessionNative` set to false (default) in the settings, `SuperSessionStorage`
+will use the native `localStorage` to store values and a cookie in order to watch the 
+browser session. This trick allows `SuperSessionStorage` to be kept between tabs and 
+windows (unlike native `sessionStorage`)
 
 ### setItem
 
@@ -137,7 +137,7 @@ superSessionStorage.clear()
 ### setItem
 
 Set a value. 
-Options can be passed (merges with global settings cookieOptions)
+Options can be passed (merged with global settings `cookieOptions`)
 
 ```javascript
   const options = {
@@ -166,7 +166,7 @@ superCookie.getItem('key', 'default value')
 
 ### removeItem
 
-Remove a value. Path and domain options can be passed.
+Remove a value. Options `path` and `domain` can be passed.
 
 ```javascript
  const options = {
