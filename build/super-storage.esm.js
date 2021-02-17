@@ -1,3 +1,12 @@
+
+/**!
+* super-storage
+* Cookie, localStorage and sessionStorage javascript helpers
+* https://github.com/jaysalvat/super-store
+* @version 1.1.0 built 2021-02-17 15:07:10
+* @license ISC
+* @author Jay Salvat http://jaysalvat.com
+*/
 var defaultSettings = {
   storagePrefix: '',
   sessionCookieName: '__superStorageSession',

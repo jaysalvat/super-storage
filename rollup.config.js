@@ -1,31 +1,26 @@
 import { terser } from 'rollup-plugin-terser'
 import pkg from './package.json'
 
-const watched = process.env.ROLLUP_WATCH
 const NAME = 'superStorage'
 const FILENAME = 'super-storage'
 const SRC = './src'
 const DIST = './build'
+const DATE = new Date().toISOString().replace(/[TZ]/g, ' ').split('.')[0]
 
 const configs = []
 const formats = [ 'esm', 'esm.min', 'umd', 'umd.min' ]
+const watched = process.env.ROLLUP_WATCH
 
-const date = new Date()
-
+const bannerLight = `/*! ${FILENAME} v${pkg.version} */`
 const bannerFull = `
 /**!
-* ${NAME} — ${pkg.description}
+* ${FILENAME}
+* ${pkg.description}
 * https://github.com/jaysalvat/super-store
-* @version ${pkg.version} built ${date.toISOString().replace(/[TZ]/g, ' ')}
-* @license MIT
+* @version ${pkg.version} built ${DATE}
+* @license ${pkg.license}
 * @author Jay Salvat http://jaysalvat.com
 */`
-
-const bannerLight = `
-/*!
- * ${NAME} v${pkg.version}
- * https://github.com/jaysalvat/super-store
- */`
 
 formats.forEach((type) => {
   const [ format, minify ] = type.split('.')
