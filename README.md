@@ -38,7 +38,7 @@ const superSessionStorage = new SuperSessionStorage(settings)
 ### CDN
 
 ```html
-<script src="https://unpkg.com/@jaysalvat/super-storage@1.1.1/build/super-storage.umd.min.js"></script>
+<script src="https://unpkg.com/@jaysalvat/super-storage@latest/build/super-storage.umd.min.js"></script>
 <script>
   const settings = {
     storagePrefix: 'myApp'
