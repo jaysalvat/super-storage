@@ -1,4 +1,5 @@
 import { terser } from 'rollup-plugin-terser'
+import filesize from 'rollup-plugin-filesize'
 import pkg from './package.json'
 
 const NAME = 'superStorage'
@@ -35,7 +36,10 @@ formats.forEach((type) => {
       name: format === 'umd' ? NAME : null,
       banner: !watched && (minify ? bannerLight : bannerFull),
       plugins: [
-        !watched && minify ? terser() : null
+        !watched && minify ? terser() : null,
+        filesize({
+          showMinifiedSize: false
+        })
       ]
     }
   })
