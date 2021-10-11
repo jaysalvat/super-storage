@@ -21,7 +21,7 @@ const superSessionNativeStorage = new SuperSessionStorage(settings)
 
 // COOKIE
 
-describe('Super Cookiee', function () {
+describe('Super Cookie', function () {
   it('Should write value', function () {
     superCookie.setItem('test', 'ok')
 
@@ -81,6 +81,16 @@ describe('Super Local Storage', function () {
     expect(superLocalStorage.getItem('a')).to.deep.equal(null)
     expect(superLocalStorage.getItem('b')).to.deep.equal(null)
   })
+
+  it('Should remove item if value undefined', function () {
+    superLocalStorage.setItem('test', 'ok')
+
+    expect(superLocalStorage.getItem('test')).to.deep.equal('ok')
+
+    superLocalStorage.setItem('test')
+
+    expect(superLocalStorage.getItem('test')).to.deep.equal(null)
+  })
 })
 
 // SESSION STORAGE
@@ -136,6 +146,16 @@ describe('Super Session Storage', function () {
 
     expect(superSessionStorage.getItem('test')).to.deep.equal(null)
     expect(localStorage.getItem('myPrefix.mySession.test')).to.deep.equal(null)
+  })
+
+  it('Should remove item if value undefined', function () {
+    superSessionStorage.setItem('test', 'ok')
+
+    expect(superSessionStorage.getItem('test')).to.deep.equal('ok')
+
+    superSessionStorage.setItem('test')
+
+    expect(superSessionStorage.getItem('test')).to.deep.equal(null)
   })
 })
 

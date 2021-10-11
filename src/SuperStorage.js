@@ -22,6 +22,10 @@ export default class SuperStorage {
   }
 
   setItem(key, value) {
+    if (typeof value === 'undefined') {
+      return this.storage.removeItem(this.key(key))
+    }
+
     if (typeof value === 'object') {
       value = JSON.stringify(value)
     }
